@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider } from "@chakra-ui/react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+// pages for this product
+import HomePage from "./pages/HomePage/HomePage";
+import OrdersPage from "./pages/OrdersPage/OrdersPage";
+import FoodItemPage from "./pages/FoodItemPage/FoodItemPage";
+import CustomersPage from "./pages/CustomersPage/CustomersPage";
+
+// core components for this product
+import NavBar from "./components/common/Navbar";
+import Parallax from "./components/common/Parallax";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Parallax />
+      <BrowserRouter>
+        <NavBar />
+        <Switch>
+          <Route path="/orders" component={OrdersPage} />
+          <Route path="/customers" component={CustomersPage} />
+          <Route path="/food-items" component={FoodItemPage} />
+          <Route path="/" component={HomePage} />
+        </Switch>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 
