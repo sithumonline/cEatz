@@ -14,7 +14,7 @@ export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const bgColor = { light: "gray.300", dark: "gray.600" };
   const textColor = { light: "black", dark: "gray.100" };
-  const imgColor = { dark: "gray.700" };
+  const imgColor: any = { dark: "gray.700" };
   return (
     <Flex
       w="100vw"
@@ -36,7 +36,7 @@ export default function NavBar() {
               alt="Logo of xEatz"
               bg={imgColor[colorMode]}
             />
-          </Box>{" "}
+          </Box>
         </Link>
         <Stack
           spacing={8}
@@ -84,6 +84,7 @@ export default function NavBar() {
         </Stack>
         <Box>
           <IconButton
+            aria-label=""
             rounded="full"
             onClick={toggleColorMode}
             icon={colorMode === "light" ? <SunIcon /> : <MoonIcon />}
