@@ -13,7 +13,7 @@ export default function OrdersPage() {
   let table;
 
   if (error) {
-    console.log(error.message);
+    console.log(error);
   }
 
   if (!data) {

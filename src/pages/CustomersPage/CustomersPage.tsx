@@ -2,18 +2,18 @@ import axios from "axios";
 import { Box, Flex } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { environment } from "../../configs/environment";
-import TableComponent from "../../components/FoodItemsPage/Table";
-import AddComponent from "../../components/FoodItemsPage/Add";
+import TableComponent from "../../components/CustomersPage/Table";
+import AddComponent from "../../components/CustomersPage/Add";
 
-export default function FoodItemPage() {
-  const { isLoading, error, data } = useQuery("food-items", () =>
-    axios.get(environment.baseURL + "/food-items/").then((res) => res.data)
+export default function CustomersPage() {
+  const { isLoading, error, data } = useQuery("customers", () =>
+    axios.get(environment.baseURL + "/customers/").then((res) => res.data)
   );
 
   let table;
 
   if (error) {
-    console.log(error.message);
+    console.log(error);
   }
 
   if (!data) {
