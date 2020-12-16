@@ -17,35 +17,31 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
-import { FoodItemsService } from "../../services";
-export default function EditComponent(props) {
+import { OrdersService } from "../../services";
+export default function EditComponent(props: { vl: any }) {
   const gData = props.vl;
   const { colorMode } = useColorMode();
   const boxColor = { light: "teal.300", dark: "teal.600" };
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
+  const btnRef: any = useRef();
   const formik = useFormik({
     initialValues: {
-      ItmID: gData.ItmID,
+      CusID: gData.CusID,
+      OrdID: gData.OrdID,
       ResID: gData.ResID,
-      Name: gData.Name,
-      ItmKind: gData.ItmKind,
-      smallPrice: gData.smallPrice,
-      largePrice: gData.largePrice,
-      ImgURL: gData.ImgURL,
+      NoItems: gData.NoItems,
+      paymentWay: gData.paymentWay,
     },
 
     onSubmit: async (values, { resetForm }) => {
-      await FoodItemsService.UpdateAFoodItem(gData.ID, values);
+      await OrdersService.UpdateAOrder(gData.ID, values);
       resetForm({
         values: {
-          ItmID: "",
+          CusID: "",
+          OrdID: "",
           ResID: "",
-          Name: "",
-          ItmKind: "",
-          smallPrice: "",
-          largePrice: "",
-          ImgURL: "",
+          NoItems: "",
+          paymentWay: "",
         },
       });
       onClose();
@@ -54,6 +50,7 @@ export default function EditComponent(props) {
   return (
     <>
       <IconButton
+        aria-label=""
         rounded="full"
         onClick={onOpen}
         icon={<EditIcon />}
@@ -68,13 +65,19 @@ export default function EditComponent(props) {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Edit The Food Item</DrawerHeader>
+            <DrawerHeader>Edit The Order</DrawerHeader>
             <DrawerBody>
               <Stack spacing={1}>
                 <Input
-                  id="ItmID"
-                  placeholder="ItmID"
-                  value={formik.values.ItmID}
+                  id="CusID"
+                  placeholder="CusID"
+                  value={formik.values.CusID}
+                  onChange={formik.handleChange}
+                />
+                <Input
+                  id="OrdID"
+                  placeholder="OrdID"
+                  value={formik.values.OrdID}
                   onChange={formik.handleChange}
                 />
                 <Input
@@ -84,33 +87,15 @@ export default function EditComponent(props) {
                   onChange={formik.handleChange}
                 />
                 <Input
-                  id="Name"
-                  placeholder="Name"
-                  value={formik.values.Name}
+                  id="NoItems"
+                  placeholder="NoItems"
+                  value={formik.values.NoItems}
                   onChange={formik.handleChange}
                 />
                 <Input
-                  id="ItmKind"
-                  placeholder="ItmKind"
-                  value={formik.values.ItmKind}
-                  onChange={formik.handleChange}
-                />
-                <Input
-                  id="smallPrice"
-                  placeholder="smallPrice"
-                  value={formik.values.smallPrice}
-                  onChange={formik.handleChange}
-                />
-                <Input
-                  id="largePrice"
-                  placeholder="largePrice"
-                  value={formik.values.largePrice}
-                  onChange={formik.handleChange}
-                />
-                <Input
-                  id="ImgURL"
-                  placeholder="ImgURL"
-                  value={formik.values.ImgURL}
+                  id="paymentWay"
+                  placeholder="paymentWay"
+                  value={formik.values.paymentWay}
                   onChange={formik.handleChange}
                 />
               </Stack>
@@ -119,7 +104,7 @@ export default function EditComponent(props) {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button color="blue" onClick={formik.handleSubmit}>
+              <Button color="blue" onClick={() => formik.handleSubmit}>
                 Update
               </Button>
             </DrawerFooter>

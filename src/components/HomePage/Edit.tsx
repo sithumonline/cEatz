@@ -18,12 +18,12 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { RestaurantsService } from "../../services";
-export default function EditComponent(props) {
+export default function EditComponent(props: { vl: any }) {
   const gData = props.vl;
   const { colorMode } = useColorMode();
   const boxColor = { light: "teal.300", dark: "teal.600" };
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
+  const btnRef: any = useRef();
   const formik = useFormik({
     initialValues: {
       ResID: gData.ResID,
@@ -44,6 +44,7 @@ export default function EditComponent(props) {
   return (
     <>
       <IconButton
+        aria-label=""
         rounded="full"
         onClick={onOpen}
         icon={<EditIcon />}
@@ -97,7 +98,7 @@ export default function EditComponent(props) {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button color="blue" onClick={formik.handleSubmit}>
+              <Button color="blue" onClick={() => formik.handleSubmit}>
                 Update
               </Button>
             </DrawerFooter>

@@ -18,21 +18,23 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { RestaurantsService } from "../../services";
+import { FoodItemsService } from "../../services";
 export default function AddComponent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
+  const btnRef: any = useRef();
   const formik = useFormik({
     initialValues: {
+      ItmID: "",
       ResID: "",
       Name: "",
-      Phone: "",
-      Location: "",
+      ItmKind: "",
+      smallPrice: "",
+      largePrice: "",
       ImgURL: "",
     },
 
     onSubmit: async (values, { resetForm }) => {
-      await RestaurantsService.AddARestaurant(values);
+      await FoodItemsService.AddAFoodItem(values);
       resetForm({});
       onClose();
     },
@@ -43,7 +45,7 @@ export default function AddComponent() {
         <Grid templateColumns="repeat(6, 1fr)" align="center" gap={6}>
           <GridItem colStart={6}>
             <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={onOpen}>
-              Add Restaurant
+              Add Food Item
             </Button>
           </GridItem>
         </Grid>
@@ -57,9 +59,15 @@ export default function AddComponent() {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Add New Restaurant</DrawerHeader>
+            <DrawerHeader>Add New Food Item</DrawerHeader>
             <DrawerBody>
               <Stack spacing={1}>
+                <Input
+                  id="ItmID"
+                  placeholder="ItmID"
+                  value={formik.values.ItmID}
+                  onChange={formik.handleChange}
+                />
                 <Input
                   id="ResID"
                   placeholder="ResID"
@@ -73,15 +81,21 @@ export default function AddComponent() {
                   onChange={formik.handleChange}
                 />
                 <Input
-                  id="Phone"
-                  placeholder="Phone"
-                  value={formik.values.Phone}
+                  id="ItmKind"
+                  placeholder="ItmKind"
+                  value={formik.values.ItmKind}
                   onChange={formik.handleChange}
                 />
                 <Input
-                  id="Location"
-                  placeholder="Location"
-                  value={formik.values.Location}
+                  id="smallPrice"
+                  placeholder="smallPrice"
+                  value={formik.values.smallPrice}
+                  onChange={formik.handleChange}
+                />
+                <Input
+                  id="largePrice"
+                  placeholder="largePrice"
+                  value={formik.values.largePrice}
                   onChange={formik.handleChange}
                 />
                 <Input
@@ -96,7 +110,7 @@ export default function AddComponent() {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button color="blue" onClick={formik.handleSubmit}>
+              <Button color="blue" onClick={() => formik.handleSubmit}>
                 Add
               </Button>
             </DrawerFooter>

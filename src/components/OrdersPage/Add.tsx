@@ -2,9 +2,10 @@ import React from "react";
 import { useFormik } from "formik";
 import { useRef } from "react";
 import {
+  Box,
+  Grid,
+  GridItem,
   Button,
-  IconButton,
-  useColorMode,
   useDisclosure,
   Input,
   Stack,
@@ -16,45 +17,37 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import { EditIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 import { OrdersService } from "../../services";
-export default function EditComponent(props) {
-  const gData = props.vl;
-  const { colorMode } = useColorMode();
-  const boxColor = { light: "teal.300", dark: "teal.600" };
+export default function AddComponent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
+  const btnRef: any = useRef();
   const formik = useFormik({
     initialValues: {
-      CusID: gData.CusID,
-      OrdID: gData.OrdID,
-      ResID: gData.ResID,
-      NoItems: gData.NoItems,
-      paymentWay: gData.paymentWay,
+      CusID: "",
+      OrdID: "",
+      ResID: "",
+      NoItems: "",
+      paymentWay: "",
     },
 
     onSubmit: async (values, { resetForm }) => {
-      await OrdersService.UpdateAOrder(gData.ID, values);
-      resetForm({
-        values: {
-          CusID: "",
-          OrdID: "",
-          ResID: "",
-          NoItems: "",
-          paymentWay: "",
-        },
-      });
+      await OrdersService.AddAOrder(values);
+      resetForm({});
       onClose();
     },
   });
   return (
     <>
-      <IconButton
-        rounded="full"
-        onClick={onOpen}
-        icon={<EditIcon />}
-        bg={boxColor[colorMode]}
-      />
+      <Box borderWidth="1px" borderRadius="lg" margin={1} w="100%" p={1}>
+        <Grid templateColumns="repeat(6, 1fr)" align="center" gap={6}>
+          <GridItem colStart={6}>
+            <Button leftIcon={<AddIcon />} colorScheme="teal" onClick={onOpen}>
+              Add Restaurant
+            </Button>
+          </GridItem>
+        </Grid>
+      </Box>
       <Drawer
         isOpen={isOpen}
         placement="right"
@@ -64,7 +57,7 @@ export default function EditComponent(props) {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Edit The Order</DrawerHeader>
+            <DrawerHeader>Add New Order</DrawerHeader>
             <DrawerBody>
               <Stack spacing={1}>
                 <Input
@@ -103,8 +96,8 @@ export default function EditComponent(props) {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button color="blue" onClick={formik.handleSubmit}>
-                Update
+              <Button color="blue" onClick={() => formik.handleSubmit}>
+                Add
               </Button>
             </DrawerFooter>
           </DrawerContent>
