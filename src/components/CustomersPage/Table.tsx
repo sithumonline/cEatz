@@ -2,7 +2,7 @@ import { Box, Grid, useColorMode, IconButton } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import EditComponent from "./Edit";
 import { CustomersService } from "../../services";
-export default function TableComponent(props) {
+export default function TableComponent(props: { vl: any }) {
   const value = props.vl;
   const { colorMode } = useColorMode();
   const bgColor = { light: "gray.200", dark: "gray.500" };
@@ -42,6 +42,7 @@ export default function TableComponent(props) {
         </Box>
         <Box align="center">
           <IconButton
+            aria-label=""
             rounded="full"
             onClick={onDelete}
             icon={<DeleteIcon />}

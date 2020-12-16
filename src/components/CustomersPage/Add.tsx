@@ -21,7 +21,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { CustomersService } from "../../services";
 export default function AddComponent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
+  const btnRef: any = useRef();
   const formik = useFormik({
     initialValues: {
       CusID: "",
@@ -96,7 +96,7 @@ export default function AddComponent() {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button color="blue" onClick={formik.handleSubmit}>
+              <Button color="blue" onClick={() => formik.handleSubmit}>
                 Add
               </Button>
             </DrawerFooter>
