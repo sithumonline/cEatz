@@ -102,7 +102,7 @@ export default function EditComponent(props: { vl: any }) {
                             <Button variant="outline" mr={3} onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button color="blue" onClick={() => formik.handleSubmit}>
+                            <Button color="blue" onClick={() => formik.handleSubmit()}>
                                 Update
                             </Button>
                         </DrawerFooter>

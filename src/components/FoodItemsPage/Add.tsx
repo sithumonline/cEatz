@@ -114,7 +114,7 @@ export default function AddComponent() {
                             <Button variant="outline" mr={3} onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button color="blue" onClick={() => formik.handleSubmit}>
+                            <Button color="blue" onClick={() => formik.handleSubmit()}>
                                 Add
                             </Button>
                         </DrawerFooter>
