@@ -22,7 +22,7 @@ import {FoodItemsService} from "../../services";
 
 export default function EditComponent(props: { vl: any }) {
     const gData = props.vl;
-    const queryClient = useQueryCache()
+    const queryClient = useQueryCache();
     const {colorMode} = useColorMode();
     const boxColor = {light: "teal.300", dark: "teal.600"};
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -51,7 +51,7 @@ export default function EditComponent(props: { vl: any }) {
                     ImgURL: "",
                 },
             });
-            await queryClient.invalidateQueries('food-items')
+            await queryClient.invalidateQueries('food-items');
             onClose();
         },
     });

@@ -22,7 +22,7 @@ import {AddIcon} from "@chakra-ui/icons";
 import {OrdersService} from "../../services";
 
 export default function AddComponent() {
-    const queryClient = useQueryCache()
+    const queryClient = useQueryCache();
     const {isOpen, onOpen, onClose} = useDisclosure();
     const btnRef: any = useRef();
     const formik = useFormik({
@@ -37,7 +37,7 @@ export default function AddComponent() {
         onSubmit: async (values, {resetForm}) => {
             await OrdersService.AddAOrder(values);
             resetForm({});
-            await queryClient.invalidateQueries('orders')
+            await queryClient.invalidateQueries('orders');
             onClose();
         },
     });

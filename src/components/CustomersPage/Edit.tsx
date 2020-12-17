@@ -22,7 +22,7 @@ import {CustomersService} from "../../services";
 
 export default function EditComponent(props: { vl: any }) {
     const gData = props.vl;
-    const queryClient = useQueryCache()
+    const queryClient = useQueryCache();
     const {colorMode} = useColorMode();
     const boxColor = {light: "teal.300", dark: "teal.600"};
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -41,7 +41,7 @@ export default function EditComponent(props: { vl: any }) {
             resetForm({
                 values: {CusID: "", FName: "", LName: "", Phone: "", Mail: ""},
             });
-            await queryClient.invalidateQueries('customers')
+            await queryClient.invalidateQueries('customers');
             onClose();
         },
     });
