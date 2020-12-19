@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useRef} from "react";
+import * as Yup from 'yup';
 import {useFormik} from "formik";
 import {useQueryCache} from "react-query";
-import {useRef} from "react";
 import {
     Box,
     Grid,
@@ -25,6 +25,13 @@ export default function AddComponent() {
     const queryClient = useQueryCache();
     const {isOpen, onOpen, onClose} = useDisclosure();
     const btnRef: any = useRef();
+    const customerSchema = Yup.object().shape({
+        CusID: Yup.number().positive().integer().required('Required'),
+        FName: Yup.string().required('Required'),
+        LName: Yup.string().required('Required'),
+        Phone: Yup.number().required('Required'),
+        Mail: Yup.string().email('Invalid email').required('Required')
+    });
     const formik = useFormik({
         initialValues: {
             CusID: "",
@@ -33,7 +40,7 @@ export default function AddComponent() {
             Phone: "",
             Mail: "",
         },
-
+        validationSchema: customerSchema,
         onSubmit: async (values, {resetForm}) => {
             await CustomersService.AddACustomers(values);
             resetForm({});
