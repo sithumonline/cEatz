@@ -31,7 +31,7 @@ export default function EditComponent(props: { vl: any }) {
         ResID: Yup.number().positive().integer().required('Required'),
         Name: Yup.string().required('Required'),
         Phone: Yup.number().required('Required'),
-        Location: Yup.number().required('Required'),
+        Location: Yup.string().required('Required'),
         ImgURl: Yup.string().url().required('Required')
     });
     const formik = useFormik({
