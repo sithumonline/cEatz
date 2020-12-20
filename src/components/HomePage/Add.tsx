@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useRef} from "react";
+import * as Yup from 'yup';
 import {useFormik} from "formik";
 import {useQueryCache} from "react-query";
-import {useRef} from "react";
 import {
     Box,
     Grid,
@@ -25,6 +25,13 @@ export default function AddComponent() {
     const queryClient = useQueryCache();
     const {isOpen, onOpen, onClose} = useDisclosure();
     const btnRef: any = useRef();
+    const restaurantSchema = Yup.object().shape({
+        ResID: Yup.number().positive().integer().required('Required'),
+        Name: Yup.string().required('Required'),
+        Phone: Yup.number().required('Required'),
+        Location: Yup.number().required('Required'),
+        ImgURl: Yup.string().url().required('Required')
+    });
     const formik = useFormik({
         initialValues: {
             ResID: "",
@@ -33,7 +40,7 @@ export default function AddComponent() {
             Location: "",
             ImgURL: "",
         },
-
+        validationSchema: restaurantSchema,
         onSubmit: async (values, {resetForm}) => {
             await RestaurantsService.AddARestaurant(values);
             resetForm({});
