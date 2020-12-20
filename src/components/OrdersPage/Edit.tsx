@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useRef} from "react";
+import * as Yup from 'yup';
 import {useFormik} from "formik";
 import {useQueryCache} from "react-query";
-import {useRef} from "react";
 import {
     Button,
     IconButton,
@@ -27,6 +27,14 @@ export default function EditComponent(props: { vl: any }) {
     const boxColor = {light: "teal.300", dark: "teal.600"};
     const {isOpen, onOpen, onClose} = useDisclosure();
     const btnRef: any = useRef();
+    const orderSchema = Yup.object().shape({
+        CusID: Yup.number().positive().integer().required('Required'),
+        OrdID: Yup.number().positive().integer().required('Required'),
+        ResID: Yup.number().positive().integer().required('Required'),
+        Name: Yup.string().required('Required'),
+        NoItems: Yup.number().required('Required'),
+        paymentWay: Yup.string().url().required('Required')
+    });
     const formik = useFormik({
         initialValues: {
             CusID: gData.CusID,
@@ -35,7 +43,7 @@ export default function EditComponent(props: { vl: any }) {
             NoItems: gData.NoItems,
             paymentWay: gData.paymentWay,
         },
-
+        validationSchema: orderSchema,
         onSubmit: async (values, {resetForm}) => {
             await OrdersService.UpdateAOrder(gData.ID, values);
             resetForm({
