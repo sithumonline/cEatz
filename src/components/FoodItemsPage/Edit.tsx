@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useRef} from "react";
+import * as Yup from 'yup';
 import {useFormik} from "formik";
 import {useQueryCache} from "react-query";
-import {useRef} from "react";
 import {
     Button,
     IconButton,
@@ -27,6 +27,15 @@ export default function EditComponent(props: { vl: any }) {
     const boxColor = {light: "teal.300", dark: "teal.600"};
     const {isOpen, onOpen, onClose} = useDisclosure();
     const btnRef: any = useRef();
+    const foodItemSchema = Yup.object().shape({
+        ItmID: Yup.number().positive().integer().required('Required'),
+        ResID: Yup.number().positive().integer().required('Required'),
+        Name: Yup.string().required('Required'),
+        ItmKind: Yup.string().required('Required'),
+        smallPrice: Yup.number().required('Required'),
+        largePrice: Yup.number().required('Required'),
+        ImgURl: Yup.string().url().required('Required')
+    });
     const formik = useFormik({
         initialValues: {
             ItmID: gData.ItmID,
@@ -37,7 +46,7 @@ export default function EditComponent(props: { vl: any }) {
             largePrice: gData.largePrice,
             ImgURL: gData.ImgURL,
         },
-
+        validationSchema: foodItemSchema,
         onSubmit: async (values, {resetForm}) => {
             await FoodItemsService.UpdateAFoodItem(gData.ID, values);
             resetForm({
