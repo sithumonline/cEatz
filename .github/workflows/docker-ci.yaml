@@ -2,7 +2,7 @@ name: GitHub Registry Image Push
 on:
   push:
     branches:
-      - main
+      - master
       
 jobs:
   build:
