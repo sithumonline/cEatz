@@ -1,3 +1,3 @@
 export const environment = {
-  baseURL: process.env.REACT_APP_BASEURL || "https://stormy-depths-99062.herokuapp.com/v1",
+  baseURL: "http://localhost:3080/v1" || "https://stormy-depths-99062.herokuapp.com/v1",
 };
