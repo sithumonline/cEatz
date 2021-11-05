@@ -21,5 +21,5 @@ COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # New
-#EXPOSE 80
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
