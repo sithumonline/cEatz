@@ -13,7 +13,7 @@ RUN yarn install
 COPY . .
 
 # Build the folder
-RUN yarn build:rs
+RUN yarn build
 
 # Handle Nginx
 FROM nginx:stable-alpine
